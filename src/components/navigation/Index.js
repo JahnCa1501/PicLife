@@ -6,9 +6,17 @@ import * as SplashScreen from "expo-splash-screen";
 import Signin from "../screens/SignIn"
 import Signup from "../screens/Signup"
 import Home from "../screens/Home";
+<<<<<<< HEAD
 import forgotPass from "../screens/ForgotPassword";
+=======
+import Search from "../screens/Search";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+>>>>>>> 3a97f2bd5f922b52495aff0efc35ca0ef86ebf2b
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
 
 function Navigation() {
   const { state, persistLogin } = useContext(AuthContext);
@@ -26,9 +34,25 @@ function Navigation() {
       {!state.loading && (
         <>
           {state.loggedIn ? (
-            <Stack.Navigator>
-              <Stack.Screen name="Home" component={Home} />
-            </Stack.Navigator>
+            <Tab.Navigator>
+             <Tab.Screen name="Home" component={Home} options={{
+                  tabBarLabel: 'Home',
+                   tabBarIcon: ({size }) => (
+            <MaterialCommunityIcons name="home" size={40} />
+          ),
+          }}
+          />
+
+
+         <Tab.Screen name="Search" component={Search} options={{
+          tabBarLabel: 'Search',
+          tabBarIcon: ({size }) => (
+          <MaterialCommunityIcons name="account-search" size={40} />
+          ),
+        }}
+        />
+            
+            </Tab.Navigator>
           ) : (
             <Stack.Navigator screenOptions={{ headerShown: false }}>
               <Stack.Screen name="Signin" component={Signin} />

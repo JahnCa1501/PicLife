@@ -1,6 +1,7 @@
 import createDataContext from "./createDataContext"
 import { firebase } from "../firebase/Index"
 
+
 const authReducer = (state, action) => {
   switch (action.type) {
     case "signup":

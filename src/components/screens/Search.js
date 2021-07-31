@@ -8,6 +8,7 @@ const win = Dimensions.get('window');
 const ratio = win.width/541;
 
 function Search({navigation}){
+  const { signout } = useContext(AuthContext);
   const [picture, setPicture] = useState(null);
 
   const getPicture = async () => {
@@ -38,15 +39,6 @@ function Search({navigation}){
         )
       })}
     </ScrollView>
-  )
-  const { signout } = useContext(AuthContext);
-
-  return(
-    <View style={styles.container}>
-       <Searchbar placeholder="Buscar  ..." />
-      <Text>Welcome from home screen</Text>
-      <Button onPress={signout}>Signout</Button>
-    </View>
   )
 }
 

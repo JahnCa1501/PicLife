@@ -16,7 +16,6 @@ const curatedPicture = async () => {
     console.log(data);
 
     return data;
-
 }
 
 export default curatedPicture;

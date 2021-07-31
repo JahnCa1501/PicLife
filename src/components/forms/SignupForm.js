@@ -1,11 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-<<<<<<< HEAD
+import React, { useEffect, useContext, useState } from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import { Button, Caption, TextInput, Text } from "react-native-paper";
-=======
-import { StyleSheet, View,Text } from "react-native";
-import { Button, Caption, TextInput } from "react-native-paper";
->>>>>>> 3a97f2bd5f922b52495aff0efc35ca0ef86ebf2b
 import { Context as AuthContext } from "../../providers/AuthContext"
 
 function SignupForm({navigation}) {

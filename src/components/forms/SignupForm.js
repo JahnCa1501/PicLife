@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View,Text } from "react-native";
 import { Button, Caption, TextInput } from "react-native-paper";
 import { Context as AuthContext } from "../../providers/AuthContext"
 

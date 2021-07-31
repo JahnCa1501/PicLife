@@ -5,7 +5,7 @@ const apiKey = "563492ad6f91700001000001bef0c946941147b298b3710bb8e84838";
 
 
 
-const curatedPicture = async () => {
+export const curatedPicture = async () => {
    
     const response = await fetch(api, {
         headers: {
@@ -20,4 +20,18 @@ const curatedPicture = async () => {
     return data;
 }
 
-export default curatedPicture;
+const api2="https://api.pexels.com/v1/curated/?page=2&per_page=15"
+export const searchscreen = async () => {
+   
+    const response = await fetch(api2, {
+        headers: {
+            'Authorization': apiKey
+        }
+    })
+
+    const data = await response.json();
+
+    console.log(data);
+
+    return data;
+}

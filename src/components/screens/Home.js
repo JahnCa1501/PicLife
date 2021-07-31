@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import { View,StyleSheet,ScrollView ,Image, Dimensions, Linking} from "react-native";
 import { Text, configureFonts } from "react-native-paper"
-import curatedPicture from "../../api/Index";
+import {curatedPicture} from "../../api/Index";
 
 const win = Dimensions.get('window');
 const ratio = win.width/541;
@@ -22,6 +22,7 @@ function Home({navigation}){
   return( 
     <ScrollView style={styles.container}>
       {curated &&
+    
          curated.photos.map((photo) => {
         return (
           <View key={photo.id}>

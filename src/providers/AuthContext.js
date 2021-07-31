@@ -72,15 +72,12 @@ const signup = (dispatch) => (fullname, email, password) => {
 };
 
 const signin = (dispatch) => (email, password) => {
-  // Realizar la petición de autenticación a Firebase
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((response) => {
-      // Obtener el UID para obtener los datos del usuario
       const uid = response.user.uid;
 
-      // Realizar una búsqueda en Firestore
       const usersRef = firebase.firestore().collection("users");
 
       usersRef
@@ -90,7 +87,7 @@ const signin = (dispatch) => (email, password) => {
           if (!firestoreDocument.exists) {
             dispatch({
               type: "errorMessage",
-              payload: "User does not exist on Taskily!",
+              payload: "User does not exist",
             });
           } else {
             dispatch({
@@ -124,7 +121,6 @@ const persistLogin = (dispatch) => () => {
           dispatch({ type: "errorMessage", payload: error.message });
         });
     } else {
-      // Token no es válido o ha expirado
       dispatch({
         type: "persistLogin",
         payload: { user: {}, loggedIn: false },

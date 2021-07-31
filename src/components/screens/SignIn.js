@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View, Image, ImageBackground } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
 import { Text } from "react-native-paper";
 import SigninForm from "../forms/SigninForm";
 
@@ -9,7 +9,9 @@ function Signin({ navigation }) {
     <View style={styles.container}>
       <Image style={styles.image} source={require('../images/PicLife.png')} />
       <SigninForm />
+      <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
       <Text style={styles.text}>¿Forgot your password?</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
         <Text style={styles.text}>
           ¿Don't have an account? <Text style={styles.text2}>Sign up</Text>

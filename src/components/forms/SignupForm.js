@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, View } from "react-native";
-import { Button, Caption, TextInput } from "react-native-paper";
+import { StyleSheet, ScrollView } from "react-native";
+import { Button, Caption, TextInput, Text } from "react-native-paper";
 import { Context as AuthContext } from "../../providers/AuthContext"
 
 function SignupForm({navigation}) {
@@ -14,14 +14,9 @@ function SignupForm({navigation}) {
     const [passwordError, setPasswordError] = useState(false);
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
     const [error, setError] = useState(false);
-
-    function validation(){
-      if (password.length < 8){
-        return(
-          <Caption style={styles.requirements}>Password should have at least 8 characters</Caption>
-        ) 
-      } 
-    }
+    const [data, setData] = useState({
+      isValidPassword: true,
+    });
 
     useEffect(() => {
         if (state.registered) navigation.navigate("Home");
@@ -59,10 +54,17 @@ function SignupForm({navigation}) {
             } else setError("All fields are required!");
           }
         }      
-    
+
+        const validatePassword = () => {
+          if (password.length < 8 ){
+            return(
+              <Caption style={styles.caption}>Password should have 8 characters</Caption>
+            )
+          }
+        }
 
     return(
-        <View>
+        <ScrollView>
           {error && <Text>{error}</Text>}
             {state.errorMessage != null && <Text>{state.errorMessage}</Text>}
             <TextInput
@@ -94,7 +96,6 @@ function SignupForm({navigation}) {
              onBlur={() => handleVerify("password")}
             />
             {passwordError && <Caption style={styles.caption}>Please enter a password</Caption>}
-            {validation()}
               
             <TextInput
              mode="outlined"
@@ -109,7 +110,7 @@ function SignupForm({navigation}) {
 
             <Button style={styles.button} mode="contained" 
               onPress={() => handleVerify("signup")}>Create account</Button>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -126,6 +127,12 @@ const styles = StyleSheet.create({
       },
 
       requirements: {
+        textAlign: "center",
+      },
+
+      header: {
+        fontWeight: "bold",
+        fontSize: 25,
         textAlign: "center",
       }
 });

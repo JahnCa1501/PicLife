@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {View, StyleSheet, ScrollView, Dimensions, Image} from "react-native";
-import { Text, Button } from  "react-native-paper";
+import {View, StyleSheet, ScrollView, Dimensions, Image, Button} from "react-native";
 import { searchresult } from "../../api/Index";
 
 
@@ -9,7 +8,7 @@ const win = Dimensions.get('window');
 const ratio = win.width/541;
 
 function searchresults ({navigation, route}) {
-  
+
     const {name} = route.params;
     const [result, setResult] = useState(null)
 
@@ -29,10 +28,11 @@ function searchresults ({navigation, route}) {
         {result &&
            result.photos.map((photo) => {
           return (
-            <View key={photo.id}>
-              <Text>{photo.photographer}</Text>
-               <Image style={styles.image} source={{uri: photo.src.original}}/>
-            </View>
+            <View key={photo.id} style={styles.view}>
+              <Button style={styles.text}
+                 onPress={() => Linking.openURL(photo.photographer_url)} title={photo.photographer}/>
+              <Image style={styles.image} source={{uri: photo.src.original}}/>
+          </View>
           )
         })}
       </ScrollView>
@@ -53,6 +53,21 @@ const styles=StyleSheet.create({
     alignSelf: "center",
     marginBottom: 50,
   },
+
+  view: {
+    backgroundColor: "#FFFFFF",
+    marginBottom: 25,
+    width: win.width,
+    alignSelf: "center",
+  },
+
+  text: {
+    fontWeight: "bold",
+    fontSize: 15,
+    marginTop: 10,
+    marginBottom: 10
+  },
+
 
   })
 export default searchresults;

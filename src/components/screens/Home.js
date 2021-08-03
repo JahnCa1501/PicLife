@@ -1,7 +1,6 @@
 import React, { useState,useEffect } from "react";
-import { View,StyleSheet,ScrollView ,Image, Dimensions, Linking} from "react-native";
-import { Text, configureFonts } from "react-native-paper"
-import curatedPicture from "../../api/Index";
+import { View, StyleSheet,ScrollView ,Image, Dimensions, Linking, Button } from "react-native";
+import { curatedPicture }from "../../api/Index";
 
 const win = Dimensions.get('window');
 const ratio = win.width/541;
@@ -24,12 +23,11 @@ function Home({navigation}){
       {curated &&
          curated.photos.map((photo) => {
         return (
-          <View key={photo.id}>
-            <Text style={styles.text}
-             onPress={() => Linking.openURL(photo.photographer_url)}
-             >
-               {photo.photographer}</Text>
-             <Image style={styles.image} source={{uri: photo.src.original}}/>
+          <View key={photo.id} style={styles.view}>
+            <Button style={styles.text}
+             onPress={() => Linking.openURL(photo.photographer_url)} title={photo.photographer}
+             />
+                <Image style={styles.image} source={{uri: photo.src.original}}/>
           </View>
         )
       })}
@@ -62,7 +60,14 @@ const styles=StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
+  },
+
+  view: {
+    backgroundColor: "#FFFFFF",
+    marginBottom: 25,
+    width: win.width,
+    alignSelf: "center",
   }
 })
 

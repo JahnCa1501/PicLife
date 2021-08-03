@@ -20,6 +20,7 @@ const Tab = createBottomTabNavigator();
 
 
 function Navigation() {
+ 
   const { state, persistLogin } = useContext(AuthContext);
 
   useEffect(() => {
@@ -29,7 +30,20 @@ function Navigation() {
   SplashScreen.preventAutoHideAsync();
 
   if (!state.loading) SplashScreen.hideAsync();
-  
+
+  function SearchStack({navigation}) {
+    return (
+      <SafeAreaProvider>
+      <SafeAreaView style={{ flex: 1}}>  
+      <Stack.Navigator>
+        <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="searchresults" component={searchresults} options={{title: "Search Results"}}/>
+      </Stack.Navigator>
+      </SafeAreaView>
+    </SafeAreaProvider>
+    )
+  }
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1}}>
@@ -37,44 +51,32 @@ function Navigation() {
           {!state.loading && (
             <>
              {state.loggedIn ? (
-
-              <Tab.Navigator>
-                <Tab.Screen name="Home" component={Home} options={{
-                    tabBarLabel: 'Home',
-                    tabBarIcon: ({size }) => (
-                    <MaterialCommunityIcons name="home" size={40} />
-                     ),
-                   }}
-                 />
-
-                <Tab.Screen name="Search" component={Search} options={{
-                     tabBarLabel: 'Search',
-                     tabBarIcon: ({size}) => (
-                     <FontAwesome name="search" size={30} />
-                     
-                     ),
-                     
-                   }}
+                    <Tab.Navigator>
+                    <Tab.Screen name="Home" component={Home} options={{
+                        tabBarLabel: 'Home',
+                        tabBarIcon: ({size }) => (
+                        <MaterialCommunityIcons name="home" size={40} />
+                         ),
+                       }}
+                     />
                    
-                 />
-
-               <Tab.Screen name="Profile" component={profile} options={{
-                     tabBarLabel: 'Profile',
-                     tabBarIcon: ({size}) => (
-                     <FontAwesome name="user" size={30} />
-                     ),
-
-                   }}
-                 />
-
+                     <Tab.Screen name="Search" component={SearchStack} options={{
+                         tabBarLabel: 'Search',
+                         tabBarIcon: ({size}) => (
+                         <FontAwesome name="search" size={30} />
+                         ),
+                       }}
+                     />
               
+                     <Tab.Screen name="Profile" component={profile} options={{
+                         tabBarLabel: 'Profile',
+                         tabBarIcon: ({size}) => (
+                         <FontAwesome name="user" size={30} />
+                         ),
+                       }}
+                     />
 
-            
-             <Stack.Screen name="searchresults" component={searchresults} />
-              
-          </Tab.Navigator>
-       
-
+                  </Tab.Navigator>
           ) : (
 
             <Stack.Navigator screenOptions={{ headerShown: false }}>

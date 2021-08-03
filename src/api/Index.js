@@ -35,3 +35,19 @@ export const searchscreen = async () => {
 
     return data;
 }
+
+const apisearch= "https://api.pexels.com/v1/"
+export const searchresult = async (name) => {
+    const endpoint= `${apisearch}search?query=${name}&per_page=5`
+    const response = await fetch(endpoint, {
+        headers: {
+            'Authorization': apiKey
+        }
+    })
+
+    const data = await response.json();
+
+    console.log(data);
+
+    return data;
+}

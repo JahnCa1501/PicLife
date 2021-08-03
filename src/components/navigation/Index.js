@@ -11,6 +11,9 @@ import forgotPass from "../screens/ForgotPassword";
 import Search from "../screens/Search"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import profile from "../screens/Profile";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import searchresults from "../screens/searchresults";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,7 +29,7 @@ function Navigation() {
   SplashScreen.preventAutoHideAsync();
 
   if (!state.loading) SplashScreen.hideAsync();
-
+  
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1}}>
@@ -34,6 +37,7 @@ function Navigation() {
           {!state.loading && (
             <>
              {state.loggedIn ? (
+
               <Tab.Navigator>
                 <Tab.Screen name="Home" component={Home} options={{
                     tabBarLabel: 'Home',
@@ -46,11 +50,30 @@ function Navigation() {
                 <Tab.Screen name="Search" component={Search} options={{
                      tabBarLabel: 'Search',
                      tabBarIcon: ({size}) => (
-                     <MaterialCommunityIcons name="account-search" size={40} />
+                     <FontAwesome name="search" size={30} />
+                     
                      ),
+                     
+                   }}
+                   
+                 />
+
+               <Tab.Screen name="Profile" component={profile} options={{
+                     tabBarLabel: 'Profile',
+                     tabBarIcon: ({size}) => (
+                     <FontAwesome name="user" size={30} />
+                     ),
+
                    }}
                  />
+
+              
+
+            
+             <Stack.Screen name="searchresults" component={searchresults} />
+              
           </Tab.Navigator>
+       
 
           ) : (
 

@@ -1,15 +1,15 @@
 import React, { useContext,useState,useEffect } from "react";
 import {View, StyleSheet,ScrollView,Image,Dimensions} from "react-native";
 import { Button, Text, Searchbar} from "react-native-paper";
-import { Context as AuthContext } from "../../providers/AuthContext";
 import {searchscreen} from "../../api/Index"
 
 const win = Dimensions.get('window');
 const ratio = win.width/541;
 
 function Search({navigation}){
-  const { signout } = useContext(AuthContext);
   const [picture, setPicture] = useState(null);
+  const [name, setSearch] = useState("");
+
 
   const getPicture = async () => {
     const response = await searchscreen();
@@ -23,9 +23,9 @@ function Search({navigation}){
 
   return( 
     <ScrollView style={styles.container}>
-      <Searchbar placeholder="Buscar  ..." />
-      <Text>Welcome from home screen</Text>
-      <Button onPress={signout}>Signout</Button>
+      <Searchbar placeholder="Buscar  ..." value={name} onChangeText={setSearch} 
+          onIconPress={() => navigation.navigate("searchresults", {name})}/>
+  
       {picture &&
          picture.photos.map((photo) => {
         return (

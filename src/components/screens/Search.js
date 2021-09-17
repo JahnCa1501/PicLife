@@ -1,7 +1,8 @@
 import React, { useContext,useState,useEffect } from "react";
-import {View, StyleSheet, ScrollView, Image, Dimensions, Button, Linking} from "react-native";
-import { Text, Searchbar} from "react-native-paper";
+import {View, StyleSheet, ScrollView, Image, Dimensions, Button, Linking, TouchableOpacity} from "react-native";
+import { IconButton, Colors, Searchbar} from "react-native-paper";
 import {searchscreen} from "../../api/Index";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const win = Dimensions.get('window');
 const ratio = win.width/541;
@@ -9,7 +10,7 @@ const ratio = win.width/541;
 function Search({navigation}){
   const [picture, setPicture] = useState(null);
   const [name, setSearch] = useState("");
-
+  const [favorite, setFavorite] = useState('');
 
   const getPicture = async () => {
     const response = await searchscreen();
@@ -20,6 +21,20 @@ function Search({navigation}){
   useEffect(() => {
     getPicture();
   }, []);
+
+  //Favorite Button
+  const saveImage = () => {
+    {picture &&
+      picture.photos.map((fav) => {
+        if (fav) {
+          AsyncStorage.setItem(`${fav.id}`, favorite);
+          setFavorite(`${fav.id}`);
+          alert('Data Saved');
+        } else {
+          alert('Error')
+        }
+    })}
+  }
 
   return( 
     <ScrollView style={styles.container}>
@@ -32,12 +47,18 @@ function Search({navigation}){
             <Button style={styles.text}
              onPress={() => Linking.openURL(photo.photographer_url)} title={photo.photographer}/>
              <Image style={styles.image} source={{uri: photo.src.original}}/>
+
+             <TouchableOpacity onPress={saveImage}>
+                 <IconButton style={styles.button} icon="heart" size={30} 
+                  color={Colors.red500}/>
+              </TouchableOpacity>
           </View>
         )
       })}
     </ScrollView>
   )
-}
+ } 
+
 
 const styles=StyleSheet.create({
   container:{
@@ -54,7 +75,6 @@ const styles=StyleSheet.create({
     width: win.width,
     height: 500,
     alignSelf: "center",
-    marginBottom: 50,
   },
 
   header:{
@@ -76,6 +96,11 @@ const styles=StyleSheet.create({
     marginBottom: 25,
     width: win.width,
     alignSelf: "center",
+  },
+
+  button: {
+    marginTop: 2,
+    marginBottom: 2
   }
 })
 export default Search;

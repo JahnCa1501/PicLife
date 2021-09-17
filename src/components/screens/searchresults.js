@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {View, StyleSheet, ScrollView, Dimensions, Image, Button} from "react-native";
+import {View, StyleSheet, ScrollView, Dimensions, Image, Button, Linking} from "react-native";
 import { searchresult } from "../../api/Index";
 
 
@@ -45,7 +45,6 @@ const styles=StyleSheet.create({
       marginTop:20,
       padding:10,
     },
-    
     
   image: {
     width: win.width,

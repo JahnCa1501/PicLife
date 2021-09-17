@@ -1,11 +1,13 @@
 import React, { useState,useEffect } from "react";
 import { View, StyleSheet,ScrollView ,Image, Dimensions, Linking, Button } from "react-native";
+import { IconButton, Colors } from "react-native-paper";
 import { curatedPicture }from "../../api/Index";
 
 const win = Dimensions.get('window');
 const ratio = win.width/541;
 
 function Home({navigation}){
+
   const [curated, setCurated] = useState(null);
 
   const getCurated = async () => {
@@ -28,6 +30,8 @@ function Home({navigation}){
              onPress={() => Linking.openURL(photo.photographer_url)} title={photo.photographer}
              />
                 <Image style={styles.image} source={{uri: photo.src.original}}/>
+                <IconButton style={styles.button} icon="heart" size={30} 
+                  color={Colors.red500}  onPress={() => {}}/>
           </View>
         )
       })}
@@ -46,7 +50,6 @@ const styles=StyleSheet.create({
     width: win.width,
     height: 500,
     alignSelf: "center",
-    marginBottom: 50,
   },
 
   header:{
@@ -68,6 +71,11 @@ const styles=StyleSheet.create({
     marginBottom: 25,
     width: win.width,
     alignSelf: "center",
+  }, 
+
+  button: {
+    marginTop: 2,
+    marginBottom: 2,
   }
 })
 
